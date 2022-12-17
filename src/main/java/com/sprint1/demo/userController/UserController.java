@@ -1,49 +1,45 @@
 package com.sprint1.demo.userController;
 
-import com.sprint1.demo.DTO.UserDTO;
+import com.sprint1.demo.data.UserData;
 import com.sprint1.demo.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
-    private final UserService userService;
 
-    public UserController(@Autowired UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
+
 
     @PostMapping
-    public User create(@RequestBody User user){
-        User userCreated = userService.create(user);
-        return userCreated;
+    public UserData create(@RequestBody UserData user){
+        return userService.create(user);
     }
 
-    @GetMapping
-    public User findById(String id){
-        User userFound = userService.findById(id);
+    @GetMapping("{id}")
+    public UserData findById(@PathVariable Integer id){
+        UserData userFound = userService.findById(id);
         return userFound;
     }
 
     @GetMapping
-    public List<User> allUsers(){
-        List<User> allUsers = userService.all();
-        return allUsers;
+    public HashMap<Integer, UserData> allUsers(){
+        return userService.all();
     }
 
-    @DeleteMapping
-    public void deleteUser(String id){
+    @DeleteMapping("{id}")
+    public void deleteUser(@PathVariable("id") Integer id){
         userService.deleteById(id);
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user, String id){
-        User updatedUser = userService.upadate(user,id );
-        return updatedUser;
+    public UserData updateUser(@RequestBody UserData user){
+        Integer id = user.getId();
+        return userService.upadate(user,id );
     }
 
 

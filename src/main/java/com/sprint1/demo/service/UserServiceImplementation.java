@@ -1,32 +1,40 @@
 package com.sprint1.demo.service;
 
+import com.sprint1.demo.data.UserData;
 import org.apache.catalina.User;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+@Service
 public class UserServiceImplementation implements UserService{
+
+    private HashMap<Integer, UserData> allUsers = new HashMap<>();
+
+
     @Override
-    public User create(User user) {
-        return null;
+    public UserData create(UserData user) {
+        Integer id = user.getId();
+        return allUsers.put(id,user);
     }
 
     @Override
-    public User findById(String id) {
-        return null;
+    public UserData findById(Integer id) {
+        return allUsers.get(id);
     }
 
     @Override
-    public List<User> all() {
-        return null;
+    public HashMap<Integer, UserData> all() {
+        return allUsers;
     }
 
     @Override
-    public void deleteById(String id) {
-
+    public void deleteById(Integer id) {
+    allUsers.remove(id);
     }
 
     @Override
-    public User upadate(User user, String userId) {
-        return null;
+    public UserData upadate(UserData user, Integer id) {
+        return allUsers.replace(id,user);
     }
 }

@@ -1,13 +1,16 @@
 package com.sprint1.demo.service;
 
+import com.sprint1.demo.DTO.UserDTO;
+import com.sprint1.demo.data.UserData;
 import org.apache.catalina.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
-    User create(User user);
-    User findById(String id);
-    List<User> all();
-    void deleteById(String id);
-    User upadate(User user, String userId);
+    UserData create(UserData user);
+    UserData findById(Integer id);
+    HashMap<Integer, UserData> all();
+    void deleteById(Integer id);
+    UserData upadate(UserData user, Integer Id);
 }
